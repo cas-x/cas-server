@@ -3,7 +3,7 @@
 * @Date:   2016-02-18T14:02:21+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-04-07T20:27:47+08:00
+* @Last modified time: 2016-06-29T09:49:25+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -48,7 +48,7 @@ fs.readdirSync(__dirname)
           masterQueue.add({ type: 'user.update', value: object.attributes });
           fn();
         });
-        model.afterCreate((object, fn) => {
+        model.afterCreate((object) => {
           masterQueue.add({ type: 'user.add', value: object.dataValues });
         });
         break;

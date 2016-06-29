@@ -3,7 +3,7 @@
 * @Date:   2016-03-13T22:06:56+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-06-28T15:08:17+08:00
+* @Last modified time: 2016-06-29T14:50:19+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -18,12 +18,111 @@ import { pushdSync, popdSync, exec } from '../../utils/shell';
 
 
 module.exports = {
+  async getByUid(ctx) {
+    const id = ctx.session.id;
+
+    const client = await models.pki.findOne({
+      attributes: ['id', 'days', 'name'],
+      where: {
+        uid: id,
+        is_delete: false,
+      },
+    });
+
+    if (!client) {
+      throw new utils.error.NotFoundError('dont find client pki');
+    }
+
+    ctx.return.data.value = client;
+    ctx.body = ctx.return;
+  },
+
+  async getKeyByUid(ctx) {
+    const id = ctx.session.id;
+
+    const client = await models.pki.findOne({
+      attributes: ['id', 'key', 'name'],
+      where: {
+        uid: id,
+        is_delete: false,
+      },
+    });
+
+    if (!client) {
+      throw new utils.error.NotFoundError('dont find client pki');
+    }
+
+    ctx.type = 'application/octet-stream';
+    ctx.set('Content-Disposition', `attachment; filename=\"${client.name}.key\"`);
+    ctx.body = client.key;
+  },
+
+  async getPkcs12ByUid(ctx) {
+    const id = ctx.session.id;
+
+    const client = await models.pki.findOne({
+      attributes: ['id', 'pkcs12', 'name'],
+      where: {
+        uid: id,
+        is_delete: false,
+      },
+    });
+
+    if (!client) {
+      throw new utils.error.NotFoundError('dont find client pkcs12');
+    }
+
+    ctx.type = 'application/octet-stream';
+    ctx.set('Content-Disposition', `attachment; filename=\"${client.name}.p12\"`);
+    ctx.body = client.pkcs12;
+  },
+
+  async getCrtByUid(ctx) {
+    const id = ctx.session.id;
+
+    const client = await models.pki.findOne({
+      attributes: ['id', 'crt', 'name'],
+      where: {
+        uid: id,
+        is_delete: false,
+      },
+    });
+
+    if (!client) {
+      throw new utils.error.NotFoundError('dont find client crt');
+    }
+
+    ctx.type = 'application/octet-stream';
+    ctx.set('Content-Disposition', `attachment; filename=\"${client.name}.crt\"`);
+    ctx.body = client.crt;
+  },
+
+  async getCsrByUid(ctx) {
+    const id = ctx.session.id;
+
+    const client = await models.pki.findOne({
+      attributes: ['id', 'csr', 'name'],
+      where: {
+        uid: id,
+        is_delete: false,
+      },
+    });
+
+    if (!client) {
+      throw new utils.error.NotFoundError('dont find client csr');
+    }
+
+    ctx.type = 'application/octet-stream';
+    ctx.set('Content-Disposition', `attachment; filename=\"${client.name}.csr\"`);
+    ctx.body = client.crt;
+  },
+
   async post(ctx) {
     let pki = {
       id: 0,
     };
     const password = ctx.request.body.password || config.pki.password;
-    const days = ctx.request.body.days || config.pki.days;
+    const days = config.pki.days;
     const cn = `CN=${ctx.session.username}`;
 
     // Actually, CAS dont care work directory
@@ -44,8 +143,10 @@ module.exports = {
       }
 
       pki = await models.pki.create({
+        days,
         name: cn,
         uid: ctx.session.id,
+        type: 1,
       });
       if (!pki) {
         throw new utils.error.ServerError('create pki error');
@@ -69,12 +170,11 @@ module.exports = {
       throw new utils.error.ServerError(e.message);
     }
 
-    console.log(pki.id);
     const rv = await models.pki.update({
-      pkcs12: readFileSync(`${cn}.p12`).toString(),
-      key: readFileSync(`${cn}.key`).toString(),
-      csr: readFileSync(`${cn}.csr`).toString(),
-      crt: readFileSync(`${cn}.crt`).toString(),
+      pkcs12: readFileSync(`${cn}.p12`),
+      key: readFileSync(`${cn}.key`),
+      csr: readFileSync(`${cn}.csr`),
+      crt: readFileSync(`${cn}.crt`),
       is_delete: false,
     }, {
       where: {
@@ -84,10 +184,20 @@ module.exports = {
     if (!rv) {
       throw new utils.error.ServerError('update pki error');
     }
-    console.log(readFileSync(`${cn}.p12`));
 
+    // Todo: revoke old certificate
+    // ignore result
+    await models.pki.destroy({
+      where: {
+        uid: ctx.session.id,
+        id: {
+          ne: pki.id,
+        },
+      },
+    });
     // ignore whether we popd right or not right
     popdSync();
+
     ctx.body = ctx.return;
   },
 };

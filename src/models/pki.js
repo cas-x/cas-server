@@ -2,7 +2,7 @@
  * @Author: detailyang
  * @Date:   2016-02-18 14:07:19
 * @Last modified by:   detailyang
-* @Last modified time: 2016-06-28T15:09:40+08:00
+* @Last modified time: 2016-06-29T14:50:03+08:00
  */
 
 
@@ -14,30 +14,34 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
     },
     name: {
-      type: DataTypes.STRING(1024),
+      type: DataTypes.STRING(512),
       allowNull: true,
-      unique: true,
       defaultValue: '',
     },
     key: {
-      type: DataTypes.TEXT(),
+      type: DataTypes.BLOB('medium'),
       allowNull: true,
       defaultValue: '',
     },
     csr: {
-      type: DataTypes.TEXT(),
+      type: DataTypes.BLOB('medium'),
       allowNull: true,
       defaultValue: '',
     },
     crt: {
-      type: DataTypes.TEXT(),
+      type: DataTypes.BLOB('medium'),
       allowNull: true,
       defaultValue: '',
     },
     pkcs12: {
-      type: DataTypes.TEXT(),
+      type: DataTypes.BLOB('medium'),
       allowNull: true,
       defaultValue: '',
+    },
+    days: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0,
     },
     is_delete: {
       type: DataTypes.BOOLEAN,
@@ -48,6 +52,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true,
       defaultValue: 0,
+    },
+    type: {
+      type: DataTypes.INTEGER,
+      // 'server', 'client',
+      defaultvalue: 0,
     },
   }, {
     associate: () => {
