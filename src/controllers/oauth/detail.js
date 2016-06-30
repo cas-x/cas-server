@@ -3,7 +3,7 @@
 * @Date:   2016-03-13T22:06:56+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-06-30T11:46:41+08:00
+* @Last modified time: 2016-06-30T13:25:41+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -13,6 +13,7 @@ import querystring from 'querystring';
 
 import models from '../../models';
 import utils from '../../utils';
+import { getRandomInt } from '../../utils/random';
 import config from '../../config';
 
 
@@ -81,7 +82,7 @@ module.exports = {
         }
       }
 
-      const code = uuid.v1() + Math.floor(Math.random() * 999) + 1;
+      const code = uuid.v4() + getRandomInt(0, 1000);
       const rv = await ctx.redis.setex(`${name}:${code}`, config.oauth.ttl,
         JSON.stringify({
           id: user.id,
