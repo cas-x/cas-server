@@ -2,7 +2,7 @@
  * @Author: detailyang
  * @Date:   2016-03-08 11:59:09
 * @Last modified by:   detailyang
-* @Last modified time: 2016-04-30T19:25:46+08:00
+* @Last modified time: 2016-06-30T12:45:30+08:00
  */
 
 
@@ -20,7 +20,7 @@ module.exports = async(ctx, next) => {
     body.name = ctx.session.username;
   } else if (ctx.oauth && ctx.oauth.id) {
     body.id = ctx.oauth.id;
-    body.type = 'session';
+    body.type = 'oauth';
     body.name = ctx.oauth.name;
   } else {
     body.type = 'default';

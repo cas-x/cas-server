@@ -2,7 +2,7 @@
  * @Author: detailyang
  * @Date:   2016-02-18 16:08:50
 * @Last modified by:   detailyang
-* @Last modified time: 2016-06-24T13:09:28+08:00
+* @Last modified time: 2016-06-30T13:03:59+08:00
  */
 
 
@@ -47,7 +47,7 @@ module.exports = {
     salt: process.env.CAS_NOTP_SALT || '$2a$10$jsZ0onecMnHOeKUfRG9AYe',
   },
   'oauth': {
-    ttl: 1 * 60,
+    ttl: process.env.CAS_OAUTH_TTL || 1 * 15,
   },
   'paginator': {
     'per_page': 30,
