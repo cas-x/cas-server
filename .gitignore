@@ -38,3 +38,5 @@ jspm_packages
 pki/*
 !pki/ca.key
 !pki/ca.crt
+!pki/x509.cnf.sample
+!pki/x509.cnf.dev
