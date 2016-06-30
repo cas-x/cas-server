@@ -3,7 +3,7 @@
 * @Date:   2016-03-14T10:30:37+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-04-12T17:42:18+08:00
+* @Last modified time: 2016-06-30T11:36:58+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -32,6 +32,10 @@ export default class RedisStore extends Store {
     return `${this.key}:${sid}`;
   }
 
+  getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+
   async get(sid) {
     const data = await this.redis.get(`${this.getId(sid)}`);
     return JSON.parse(data);
@@ -39,7 +43,7 @@ export default class RedisStore extends Store {
 
   async set(session, opts) {
     if (!opts.sid) {
-      opts.sid = uuid.v1();
+      opts.sid = uuid.v1() + this.getRandomInt(1, 1000);
     }
     if (Object.keys(session).length !== 0) {
       await this.redis.setex(`${this.getId(opts.sid)}`, this.ttl, JSON.stringify(session));
