@@ -3,7 +3,7 @@
 * @Date:   2016-03-13T22:06:56+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-06-29T15:10:42+08:00
+* @Last modified time: 2016-06-29T15:38:19+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -93,6 +93,20 @@ module.exports = {
     ctx.type = 'application/octet-stream';
     ctx.set('Content-Disposition', `attachment; filename=\"${server.name}.p12\"`);
     ctx.body = server.pkcs12;
+  },
+
+  async delete(ctx) {
+    const id = ctx.params.id;
+    const rv = await models.pki.destory({
+      where: {
+        id,
+      },
+    });
+    if (!rv) {
+      throw new utils.error.ServerError('delete server pki error');
+    }
+
+    ctx.body = ctx.return;
   },
 
   async get(ctx) {
