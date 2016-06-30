@@ -2,7 +2,7 @@
  * @Author: detailyang
  * @Date:   2016-02-29 14:32:13
 * @Last modified by:   detailyang
-* @Last modified time: 2016-06-30T12:57:00+08:00
+* @Last modified time: 2016-06-30T14:22:21+08:00
  */
 import fs from 'fs';
 import zxcvbn from 'zxcvbn';
@@ -105,7 +105,9 @@ module.exports = {
     };
     ctx.return.data.value = value;
     if (+persistence) {
-      ctx.session = value;
+      if (!ctx.oauth) {
+        ctx.session = value;
+      }
     }
     ctx.set('Cas-Username', user.username);
     ctx.body = ctx.return;
