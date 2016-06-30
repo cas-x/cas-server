@@ -3,7 +3,7 @@
 * @Date:   2016-03-14T10:30:37+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-06-30T11:36:58+08:00
+* @Last modified time: 2016-06-30T13:05:45+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -43,7 +43,7 @@ export default class RedisStore extends Store {
 
   async set(session, opts) {
     if (!opts.sid) {
-      opts.sid = uuid.v1() + this.getRandomInt(1, 1000);
+      opts.sid = this.getID(32) + this.getRandomInt(1, 1000);
     }
     if (Object.keys(session).length !== 0) {
       await this.redis.setex(`${this.getId(opts.sid)}`, this.ttl, JSON.stringify(session));
