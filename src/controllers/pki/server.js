@@ -3,7 +3,7 @@
 * @Date:   2016-03-13T22:06:56+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-06-30T16:49:58+08:00
+* @Last modified time: 2016-07-01T13:58:20+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -163,7 +163,7 @@ module.exports = {
       }
       cn = `CN=${cn}`;
     }
-    const encodedcn = cn.replace('*', 'wildcard').replace('/', '-');
+    const encodedcn = cn.replace(/\*/g, 'wildcard').replace(/\//g, '-');
 
     // Actually, CAS dont care work directory
     pushdSync(config.pki.dir);
@@ -190,15 +190,15 @@ module.exports = {
 
       const crt = await exec('openssl x509 -req -sha256 '
                             + `-days ${days} -passin pass:${config.pki.ca.passin} `
-                            + `-in ${cn}.csr -CA ca.crt -CAkey ca.key -set_serial ${pki.id} `
-                            + `-out ${cn}.crt -extfile ${config.pki.ca.x509}`);
+                            + `-in ${encodedcn}.csr -CA ca.crt -CAkey ca.key -set_serial ${pki.id} `
+                            + `-out ${encodedcn}.crt -extfile ${config.pki.ca.x509}`);
       if (crt.code) {
         throw new utils.error.ServerError('x509 error');
       }
 
-      const pkcs12 = await exec('openssl pkcs12 -export -clcerts '
-                              + `-passin pass:${password} -in ${cn}.crt -passout pass:${password} `
-                              + `-inkey ${cn}.key -out ${cn}.p12`);
+      const pkcs12 = await exec(`openssl pkcs12 -export -clcerts -passin pass:${password} `
+                              + ` -in ${encodedcn}.crt -passout pass:${password} `
+                              + `-inkey ${encodedcn}.key -out ${encodedcn}.p12`);
       if (pkcs12.code) {
         throw new utils.error.ServerError('pkcs12 error');
       }
@@ -207,7 +207,7 @@ module.exports = {
     }
 
     const rv = await models.pki.update({
-      pkcs12: readFileSync(`${cn}.p12`),
+      pkcs12: readFileSync(`${encodedcn}.p12`),
       key: readFileSync(`${encodedcn}.key`),
       csr: readFileSync(`${encodedcn}.csr`),
       crt: readFileSync(`${encodedcn}.crt`),

@@ -2,7 +2,7 @@
  * @Author: detailyang
  * @Date:   2016-02-29 14:32:13
 * @Last modified by:   detailyang
-* @Last modified time: 2016-06-30T17:01:46+08:00
+* @Last modified time: 2016-07-01T15:41:51+08:00
  */
 import koarouter from 'koa-router';
 
@@ -14,5 +14,6 @@ const router = koarouter({
 });
 module.exports = router;
 
-router.get('/ocsp', controllers.pki.ca.ocsp);
+router.post('/ocsp', controllers.pki.ca.ocsp.post);
+router.get('/ocsp/:ocsp(.+)', controllers.pki.ca.ocsp.get);
 router.get('/crl', controllers.pki.ca.crl);
