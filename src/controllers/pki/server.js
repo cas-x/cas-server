@@ -3,7 +3,7 @@
 * @Date:   2016-03-13T22:06:56+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-06-29T15:38:19+08:00
+* @Last modified time: 2016-06-30T16:49:58+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -190,8 +190,8 @@ module.exports = {
 
       const crt = await exec('openssl x509 -req -sha256 '
                             + `-days ${days} -passin pass:${config.pki.ca.passin} `
-                            + `-in ${encodedcn}.csr -CA ca.crt -CAkey ca.key -set_serial ${pki.id} `
-                            + `-out ${encodedcn}.crt`);
+                            + `-in ${cn}.csr -CA ca.crt -CAkey ca.key -set_serial ${pki.id} `
+                            + `-out ${cn}.crt -extfile ${config.pki.ca.x509}`);
       if (crt.code) {
         throw new utils.error.ServerError('x509 error');
       }

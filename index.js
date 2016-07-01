@@ -2,7 +2,7 @@
  * @Author: detailyang
  * @Date:   2016-02-17 15:18:34
 * @Last modified by:   detailyang
-* @Last modified time: 2016-06-24T13:07:39+08:00
+* @Last modified time: 2016-06-30T17:03:52+08:00
  */
 
 
@@ -39,6 +39,7 @@ app.use(routes.api.user.routes());
 app.use(routes.api.pki.routes());
 app.use(routes.public.user.routes());
 app.use(routes.public.oauth.routes());
+app.use(routes.public.pki.routes());
 
 app.listen(config.cas.port, () => {
   console.log(`server listen ${config.cas.port}`);

@@ -1,5 +1,5 @@
 basicConstraints             = CA:FALSE
 subjectKeyIdentifier         = hash
 authorityKeyIdentifier       = keyid,issuer:always
-authorityInfoAccess          = OCSP;URI:http://cas.com/public/ocsp
-nsCaRevocationUrl            = http://cas.com/public/crl
+authorityInfoAccess          = OCSP;URI:http://cas.com/public/pkis/ocsp
+nsCaRevocationUrl            = http://cas.com/public/pkis/crl

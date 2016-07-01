@@ -3,7 +3,7 @@
 * @Date:   2016-03-16T22:03:58+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-06-30T16:47:04+08:00
+* @Last modified time: 2016-06-30T16:55:19+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'dev') {
     subj: process.env.CAS_PKI_SUBJ || '/C=US/ST=NY/L=New York/O=CAS',
     ca: {
       x509: process.env.CAS_PKI_CA_X509
-        || path.join(path.dirname(path.dirname(__filename)), 'pki/x509.cnf.dev'),
+        || path.join(path.dirname(path.dirname(path.dirname(__filename))), 'pki/x509.cnf.dev'),
       passin: process.env.CAS_PKI_CA_PASSIN || '1234',
       key: process.env.CAS_PKI_CA_KEY || path.join(path.dirname(
         path.dirname(__filename)), 'pki/ca.key'),
@@ -35,7 +35,7 @@ if (process.env.NODE_ENV === 'dev') {
     subj: process.env.CAS_PKI_SUBJ || '/C=US/ST=NY/L=New York/O=CAS',
     ca: {
       x509: process.env.CAS_PKI_CA_X509
-        || path.join(path.dirname(path.dirname(__filename)), 'pki/x509.cnf.test'),
+        || path.join(path.dirname(path.dirname(path.dirname(__filename))), 'pki/x509.cnf.test'),
       passin: process.env.CAS_PKI_CA_PASSIN || '1234',
       key: process.env.CAS_PKI_CA_KEY || path.join(path.dirname(
         path.dirname(__filename)), 'pki/ca.key'),
@@ -51,7 +51,7 @@ if (process.env.NODE_ENV === 'dev') {
     subj: process.env.CAS_PKI_SUBJ || '/C=US/ST=NY/L=New York/O=CAS',
     ca: {
       x509: process.env.CAS_PKI_CA_X509
-        || path.join(path.dirname(path.dirname(__filename)), 'pki/x509.cnf.prod'),
+        || path.join(path.dirname(path.dirname(path.dirname(__filename))), 'pki/x509.cnf.prod'),
       passin: process.env.CAS_PKI_CA_PASSIN || '1234',
       key: process.env.CAS_PKI_CA_KEY || path.join(path.dirname(
         path.dirname(__filename)), 'pki/ca.key'),
