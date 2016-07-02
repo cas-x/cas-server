@@ -3,7 +3,7 @@
 * @Date:   2016-03-13T22:06:56+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-07-02T23:13:03+08:00
+* @Last modified time: 2016-07-02T23:14:57+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -12,7 +12,6 @@ import rfc2560 from 'asn1.js-rfc2560';
 import querystring from 'querystring';
 
 import models from '../../models';
-import config from '../../config';
 import utils from '../../utils';
 import OCSPServer from '../../utils/ocspserver';
 
