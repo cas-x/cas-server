@@ -3,7 +3,7 @@
 * @Date:   2016-03-16T22:03:58+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-06-30T16:55:19+08:00
+* @Last modified time: 2016-07-02T21:44:33+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -21,10 +21,12 @@ if (process.env.NODE_ENV === 'dev') {
       x509: process.env.CAS_PKI_CA_X509
         || path.join(path.dirname(path.dirname(path.dirname(__filename))), 'pki/x509.cnf.dev'),
       passin: process.env.CAS_PKI_CA_PASSIN || '1234',
-      key: process.env.CAS_PKI_CA_KEY || path.join(path.dirname(
-        path.dirname(__filename)), 'pki/ca.key'),
-      crt: process.env.CAS_PKI_CA_CRT || path.join(path.dirname(
-        path.dirname(__filename)), 'pki/ca.crt'),
+      unsecurekey: process.env.CAS_PKI_CA_KEY || path.join(path.dirname(path.dirname(
+        path.dirname(__filename))), 'pki/unsecure.ca.key'),
+      key: process.env.CAS_PKI_CA_KEY || path.join(path.dirname(path.dirname(
+        path.dirname(__filename))), 'pki/ca.key'),
+      crt: process.env.CAS_PKI_CA_CRT || path.join(path.dirname(path.dirname(
+        path.dirname(__filename))), 'pki/ca.crt'),
     },
   };
 } else if (process.env.NODE_ENV === 'test') {
@@ -37,10 +39,12 @@ if (process.env.NODE_ENV === 'dev') {
       x509: process.env.CAS_PKI_CA_X509
         || path.join(path.dirname(path.dirname(path.dirname(__filename))), 'pki/x509.cnf.test'),
       passin: process.env.CAS_PKI_CA_PASSIN || '1234',
-      key: process.env.CAS_PKI_CA_KEY || path.join(path.dirname(
-        path.dirname(__filename)), 'pki/ca.key'),
-      crt: process.env.CAS_PKI_CA_CRT || path.join(path.dirname(
-        path.dirname(__filename)), 'pki/ca.crt'),
+      unsecurekey: process.env.CAS_PKI_CA_KEY || path.join(path.dirname(path.dirname(
+        path.dirname(__filename))), 'pki/unsecure.ca.key'),
+      key: process.env.CAS_PKI_CA_KEY || path.join(path.dirname(path.dirname(
+        path.dirname(__filename))), 'pki/ca.key'),
+      crt: process.env.CAS_PKI_CA_CRT || path.join(path.dirname(path.dirname(
+        path.dirname(__filename))), 'pki/ca.crt'),
     },
   };
 } else {
@@ -53,10 +57,12 @@ if (process.env.NODE_ENV === 'dev') {
       x509: process.env.CAS_PKI_CA_X509
         || path.join(path.dirname(path.dirname(path.dirname(__filename))), 'pki/x509.cnf.prod'),
       passin: process.env.CAS_PKI_CA_PASSIN || '1234',
-      key: process.env.CAS_PKI_CA_KEY || path.join(path.dirname(
-        path.dirname(__filename)), 'pki/ca.key'),
-      crt: process.env.CAS_PKI_CA_CRT || path.join(path.dirname(
-        path.dirname(__filename)), 'pki/ca.crt'),
+      unsecurekey: process.env.CAS_PKI_CA_KEY || path.join(path.dirname(path.dirname(
+        path.dirname(__filename))), 'pki/unsecure.ca.key'),
+      key: process.env.CAS_PKI_CA_KEY || path.join(path.dirname(path.dirname(
+        path.dirname(__filename))), 'pki/ca.key'),
+      crt: process.env.CAS_PKI_CA_CRT || path.join(path.dirname(path.dirname(
+        path.dirname(__filename))), 'pki/ca.crt'),
     },
   };
 }
