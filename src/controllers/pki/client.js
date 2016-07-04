@@ -3,7 +3,7 @@
 * @Date:   2016-03-13T22:06:56+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-06-30T16:49:01+08:00
+* @Last modified time: 2016-07-04T10:21:51+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -185,7 +185,6 @@ module.exports = {
       throw new utils.error.ServerError('update pki error');
     }
 
-    // Todo: revoke old certificate
     // ignore result
     await models.pki.destroy({
       where: {
