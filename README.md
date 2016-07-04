@@ -1,5 +1,25 @@
-# CAS: Center Authorization Server
-[![Coverage Status](https://coveralls.io/repos/github/cas-x/cas-server/badge.svg?branch=master)](https://coveralls.io/github/cas-x/cas-server?branch=master)![Branch master](https://img.shields.io/badge/branch-master-brightgreen.svg?style=flat-square)[![Build](https://api.travis-ci.org/cas-x/cas-server.svg)](https://travis-ci.org/cas-x/cas-server)[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/cas-x/cas-server/master/LICENSE)[![release](https://img.shields.io/github/release/cas-x/cas-server.svg)](https://github.com/cas-x/cas-server/releases)
+<h1 align="center">CAS: Center Authorization Server</h1>
+
+<p align="center">
+  <img src="https://cdn.rawgit.com/cas-x/cas-logo/master/cas.svg" width="200" height="200" />
+  <br />
+   <a href="https://coveralls.io/repos/github/cas-x/cas-server/badge.svg?branch=master">
+    <img src="https://coveralls.io/repos/github/cas-x/cas-server/badge.svg?branch=master" />
+  </a>
+  <a href="https://img.shields.io/badge/branch-master-brightgreen.svg?style=flat-square">
+    <img src="https://img.shields.io/badge/branch-master-brightgreen.svg?style=flat-square" />
+  </a>
+  <a href="https://travis-ci.org/cas-x/cas-server">
+    <img src="https://api.travis-ci.org/cas-x/cas-server.svg" />
+  </a>
+  <a href="https://img.shields.io/badge/license-MIT-blue.svg">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" />
+  </a>
+  <a href="https://img.shields.io/github/release/cas-x/cas-server.svg">
+    <img src="https://img.shields.io/github/release/cas-x/cas-server.svg" />
+  </a>
+</p>
+
 
 CAS (pronounced *case*) is an **authorization server**.
 Its goal is to make application authorization as easy as possible.It provides a restful api and ldap support (cas-ldap is be used to support ldap protocol over restful api [RFC 4511](https://tools.ietf.org/html/rfc4511)). CAS can be used to integrate with software which on support restful api or support ldap, and it have used to integrate gitlab、jira、confluence、jenkins、gerrit, vpn device, phabricator, grafana.
