@@ -33,3 +33,4 @@ router.get('/server/:id(\\d+)/csr', adminOnly, controllers.pki.server.getCsr);
 router.get('/server/:id(\\d+)/key', adminOnly, controllers.pki.server.getKey);
 router.get('/server/:id(\\d+)/crt', controllers.pki.server.getCrt);
 router.post('/server', adminOnly, controllers.pki.server.post);
+router.delete('/server/:id(\\d+)', adminOnly, controllers.pki.server.delete);
