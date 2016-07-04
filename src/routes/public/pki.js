@@ -2,7 +2,7 @@
  * @Author: detailyang
  * @Date:   2016-02-29 14:32:13
 * @Last modified by:   detailyang
-* @Last modified time: 2016-07-02T23:12:29+08:00
+* @Last modified time: 2016-07-04T10:00:09+08:00
  */
 import koarouter from 'koa-router';
 import getRawBody from 'raw-body';
@@ -25,3 +25,4 @@ router.post('/ocsp', async (ctx, next) => {
 }, controllers.pki.ca.ocsp.post);
 router.get('/ocsp/:ocsp(.+)', controllers.pki.ca.ocsp.get);
 router.get('/crl', controllers.pki.ca.crl);
+router.get('/ca', controllers.pki.ca.get);

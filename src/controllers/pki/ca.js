@@ -3,14 +3,16 @@
 * @Date:   2016-03-13T22:06:56+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-07-02T23:14:57+08:00
+* @Last modified time: 2016-07-04T09:57:07+08:00
 * @License: The MIT License (MIT)
 */
 
 
 import rfc2560 from 'asn1.js-rfc2560';
 import querystring from 'querystring';
+import fs from 'fs';
 
+import config from '../../config';
 import models from '../../models';
 import utils from '../../utils';
 import OCSPServer from '../../utils/ocspserver';
@@ -18,7 +20,10 @@ import OCSPServer from '../../utils/ocspserver';
 
 module.exports = {
   async get(ctx) {
-    ctx.body = 'abcd';
+    ctx.type = 'application/octet-stream';
+
+    ctx.set('Content-Disposition', 'attachment; filename=\"ca.crt\"');
+    ctx.body = fs.readFileSync(config.pki.ca.crt);
   },
 
   async crl(ctx) {
