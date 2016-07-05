@@ -3,7 +3,7 @@
 * @Date:   2016-03-13T22:06:56+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-07-05T10:46:18+08:00
+* @Last modified time: 2016-07-05T12:15:37+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -77,6 +77,7 @@ module.exports = {
       }
 
       const ocspResp = await ocspserver.getResponses();
+      ctx.type = 'application/ocsp-response';
       ctx.body = ocspResp;
     },
 
@@ -128,6 +129,7 @@ module.exports = {
       }
 
       const ocspResp = await ocspserver.getResponses();
+      ctx.type = 'application/ocsp-response';
       ctx.body = ocspResp;
     },
   },

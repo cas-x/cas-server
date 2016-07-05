@@ -3,7 +3,7 @@
 * @Date:   2016-03-13T22:06:56+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-07-05T10:26:58+08:00
+* @Last modified time: 2016-07-05T11:27:20+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -15,6 +15,7 @@ import sequelize from 'sequelize';
 import config from '../../config';
 import models from '../../models';
 import utils from '../../utils';
+import { isNumeric } from '../../utils/number';
 import { pushdSync, popdSync, exec } from '../../utils/shell';
 
 
@@ -97,11 +98,15 @@ module.exports = {
 
   async delete(ctx) {
     const id = ctx.params.id;
-    const rv = await models.pki.destory({
+    const pki = await models.pki.findOne({
       where: {
         id,
       },
     });
+    if (!pki) {
+      throw new utils.error.ServerError('find server pki error');
+    }
+    const rv = await pki.destroy();
     if (!rv) {
       throw new utils.error.ServerError('delete server pki error');
     }
@@ -124,7 +129,7 @@ module.exports = {
 
     // it's not necessary to await in parallel for performance
     const pkis = await models.pki.findAll({
-      attributes: ['id', 'name', 'days'],
+      attributes: ['id', 'name', 'days', 'created_at'],
       where: where,
       offset: (ctx.request.page - 1) * ctx.request.per_page,
       limit: ctx.request.per_page,
@@ -155,7 +160,19 @@ module.exports = {
     const password = ctx.request.body.password || config.pki.password;
     const days = ctx.request.body.days || config.pki.days;
 
+    if (!isNumeric(days)) {
+      throw new utils.error.ParamsError('days should be number');
+    }
+    if (password.length < 4) {
+      throw new utils.error.ParamsError('cert password should be greate than 4');
+    }
+    if (password.indexOf(' ') >= 0) {
+      throw new utils.error.ParamsError('cert password cannot include whitespace');
+    }
     if (cn instanceof Array) {
+      if (!cn.length) {
+        throw new utils.error.ParamsError('common name cannot be empty');
+      }
       cn = cn.map((e) => `CN=${e}`).join('/');
     } else {
       if (cn === '') {
@@ -164,6 +181,12 @@ module.exports = {
       cn = `CN=${cn}`;
     }
     const encodedcn = cn.replace(/\*/g, 'wildcard').replace(/\//g, '-');
+    if (encodedcn.length <= 3) {
+      throw new utils.error.ParamsError('common name cannot be empty');
+    }
+    if (encodedcn.indexOf(' ') >= 0) {
+      throw new utils.error.ParamsError('common name cannot include whitespace');
+    }
 
     // Actually, CAS dont care work directory
     pushdSync(config.pki.dir);
