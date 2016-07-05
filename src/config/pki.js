@@ -3,7 +3,7 @@
 * @Date:   2016-03-16T22:03:58+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-07-05T13:08:19+08:00
+* @Last modified time: 2016-07-05T14:20:40+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -30,7 +30,7 @@ if (process.env.NODE_ENV === 'dev') {
   };
 } else if (process.env.NODE_ENV === 'test') {
   module.exports = {
-    dir: path.join(path.dirname(path.dirname(path.dirname(__filename))), 'pki'),
+    dir: pkidir,
     days: process.env.CAS_PKI_DAYS || 30,
     password: process.env.CAS_PKI_PASSWORD || 'password',
     subj: process.env.CAS_PKI_SUBJ || '/C=US/ST=NY/L=New York/O=CAS',
@@ -44,7 +44,7 @@ if (process.env.NODE_ENV === 'dev') {
   };
 } else {
   module.exports = {
-    dir: path.join(path.dirname(path.dirname(path.dirname(__filename))), 'pki'),
+    dir: pkidir,
     days: process.env.CAS_PKI_DAYS || 30,
     password: process.env.CAS_PKI_PASSWORD || 'password',
     subj: process.env.CAS_PKI_SUBJ || '/C=US/ST=NY/L=New York/O=CAS',
