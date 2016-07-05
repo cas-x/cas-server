@@ -3,7 +3,7 @@
 * @Date:   2016-03-13T22:06:56+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-07-04T09:57:07+08:00
+* @Last modified time: 2016-07-05T10:46:18+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -22,7 +22,7 @@ module.exports = {
   async get(ctx) {
     ctx.type = 'application/octet-stream';
 
-    ctx.set('Content-Disposition', 'attachment; filename=\"ca.crt\"');
+    ctx.set('Content-Disposition', 'attachment; filename="ca.crt"');
     ctx.body = fs.readFileSync(config.pki.ca.crt);
   },
 
@@ -41,7 +41,7 @@ module.exports = {
       try {
         ocspReq = rfc2560.OCSPRequest.decode(ocsp, 'der');
         const rls = ocspReq.tbsRequest.requestList;
-        for (const i in ocspReq.tbsRequest.requestList) {
+        for (let i = 0; i < ocspReq.tbsRequest.requestList.length; i++) {
           if (!ocspReq.tbsRequest.requestList.hasOwnProperty(i)) {
             continue;
           }
@@ -92,7 +92,7 @@ module.exports = {
       try {
         ocspReq = rfc2560.OCSPRequest.decode(ocsp, 'der');
         const rls = ocspReq.tbsRequest.requestList;
-        for (const i in ocspReq.tbsRequest.requestList) {
+        for (let i = 0; i < ocspReq.tbsRequest.requestList.length; i++) {
           if (!ocspReq.tbsRequest.requestList.hasOwnProperty(i)) {
             continue;
           }
