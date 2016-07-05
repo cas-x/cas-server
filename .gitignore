@@ -24,7 +24,6 @@ coverage
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
-static/build
 node_modules
 jspm_packages
 
