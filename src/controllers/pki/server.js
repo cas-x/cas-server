@@ -3,7 +3,7 @@
 * @Date:   2016-03-13T22:06:56+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-07-05T10:25:59+08:00
+* @Last modified time: 2016-07-05T10:26:58+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -110,7 +110,7 @@ module.exports = {
   },
 
   async get(ctx) {
-    const keyword = ctx.request.query.serverd || '';
+    const keyword = ctx.request.query.keyword || '';
     const where = {
       is_delete: 0,
     };
