@@ -1,3 +1,13 @@
+/**
+* @Author: BingWu Yang (https://github.com/detailyang) <detailyang>
+* @Date:   2016-07-05T09:47:23+08:00
+* @Email:  detailyang@gmail.com
+* @Last modified by:   detailyang
+* @Last modified time: 2016-07-05T10:00:47+08:00
+* @License: The MIT License (MIT)
+*/
+
+
 import Antd, {
   Button,
   Form,
@@ -110,7 +120,7 @@ export default Form.create()(React.createClass({
           message: '请填写证书密码',
         },
       ],
-    })
+    });
 
     return (
       <div style={{ margin: 10 }}>
@@ -120,34 +130,43 @@ export default Form.create()(React.createClass({
           visible={this.state.visible}
           onCancel={this.hideModal}
           footer={[
-            <Button key="back" type="ghost" size="large" onClick={this.hideModal}>关闭</Button>
+            <Button key="back" type="ghost" size="large" onClick={this.hideModal}>关闭</Button>,
           ]}
         >
-          <Form horizontal form={this.props.form}>
-            <Row>
-              <Col span={16}>
+          {
+            Object.keys(PKI).length ?
+              <Table
+                style={{ marginBottom: 30 }}
+                columns={columns}
+                dataSource={[PKI]}
+                pagination={false}
+              /> :
+              ''
+          }
+          <Form form={this.props.form}>
+            <Row gutter={12}>
+              <Col className="gutter-row" span={12}>
+                <FormItem>
+                  <Input type="text" placeholder="输入证书密码" {...certPassword} />
+                </FormItem>
+              </Col>
+              <Col className="gutter-row" span={12}>
                 <FormItem>
                   <Input type="password" placeholder="输入登录密码" {...loginPassword} />
                 </FormItem>
               </Col>
             </Row>
             <Row>
-              <Col span={16}>
-                <FormItem>
-                  <Input type="text" placeholder="输入证书密码" {...certPassword} />
-                </FormItem>
-              </Col>
-              <Col span={8}>
-                <Button type="primary" style={{ marginLeft: 10 }} onClick={this.handleSubmit}>申请证书</Button>
+              <Col className="gutter-row" span={8} offset={10}>
+                <Button
+                  type="primary"
+                  onClick={this.handleSubmit}
+                >
+                  申请证书
+                </Button>
               </Col>
             </Row>
           </Form>
-
-          {
-            Object.keys(PKI).length ?
-              <Table columns={columns} dataSource={[PKI]} pagination={false} /> :
-              ''
-          }
         </Modal>
       </div>
     );

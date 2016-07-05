@@ -1,9 +1,10 @@
 /**
+
 * @Author: BingWu Yang <detailyang>
 * @Date:   2016-03-13T22:06:56+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-07-04T10:21:51+08:00
+* @Last modified time: 2016-07-05T09:50:32+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -22,7 +23,7 @@ module.exports = {
     const id = ctx.session.id;
 
     const client = await models.pki.findOne({
-      attributes: ['id', 'days', 'name', 'created_at'],
+      attributes: ['id', 'days', 'name'],
       where: {
         uid: id,
         is_delete: false,
@@ -121,7 +122,7 @@ module.exports = {
     let pki = {
       id: 0,
     };
-    const certPassword = ctx.request.body.certPassword || config.pki.certPassword;
+    const password = ctx.request.body.password || config.pki.password;
     const days = config.pki.days;
     const cn = `CN=${ctx.session.username}`;
 
@@ -132,12 +133,12 @@ module.exports = {
     pushdSync(config.pki.dir);
     try {
       const key = await exec(`openssl genrsa -des3 -out ${cn}.key `
-                           + `-passout pass:${certPassword} 2048`);
+                           + `-passout pass:${password} 2048`);
       if (key.code) {
         throw new utils.error.ServerError('generate rsa error');
       }
       const csr = await exec(`openssl req -new -key ${cn}.key -out ${cn}.csr `
-                           + `-passin pass:${certPassword} -subj "${config.pki.subj}/${cn}"`);
+                           + `-passin pass:${password} -subj "${config.pki.subj}/${cn}"`);
       if (csr.code) {
         throw new utils.error.ServerError('req error');
       }
@@ -161,7 +162,7 @@ module.exports = {
       }
 
       const pkcs12 = await exec('openssl pkcs12 -export -clcerts '
-                              + `-passin pass:${certPassword} -in ${cn}.crt -passout pass:${certPassword} `
+                              + `-passin pass:${password} -in ${cn}.crt -passout pass:${password} `
                               + `-inkey ${cn}.key -out ${cn}.p12`);
       if (pkcs12.code) {
         throw new utils.error.ServerError('pkcs12 error');
