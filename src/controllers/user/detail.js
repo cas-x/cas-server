@@ -2,7 +2,7 @@
  * @Author: detailyang
  * @Date:   2016-02-29 14:32:13
 * @Last modified by:   detailyang
-* @Last modified time: 2016-06-30T14:22:21+08:00
+* @Last modified time: 2016-07-05T10:15:45+08:00
  */
 import fs from 'fs';
 import zxcvbn from 'zxcvbn';
@@ -61,9 +61,9 @@ module.exports = {
     }
 
     if (staticdynamic) {
-      const _dynamic = password.slice(-6);
-      const _static = password.slice(0, -6);
-      const rv = utils.password.otpcheck(_dynamic, utils.password.encrypt(
+      const pdynamic = password.slice(-6);
+      const pstatic = password.slice(0, -6);
+      const rv = utils.password.otpcheck(pdynamic, utils.password.encrypt(
         user.username + user.password, config.notp.salt));
       if (!rv) {
         throw new utils.error.ParamsError('optcode not right');
@@ -72,7 +72,7 @@ module.exports = {
           throw new utils.error.ParamsError('optcode not right');
         }
       }
-      if (!utils.password.check(_static, user.dataValues.password)) {
+      if (!utils.password.check(pstatic, user.dataValues.password)) {
         throw new utils.error.ParamsError('password not right');
       }
     }

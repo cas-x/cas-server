@@ -4,7 +4,7 @@
 * @Date:   2016-03-13T22:06:56+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-07-05T09:50:32+08:00
+* @Last modified time: 2016-07-05T10:23:26+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -23,7 +23,7 @@ module.exports = {
     const id = ctx.session.id;
 
     const client = await models.pki.findOne({
-      attributes: ['id', 'days', 'name'],
+      attributes: ['id', 'days', 'name', 'created_at'],
       where: {
         uid: id,
         is_delete: false,
@@ -122,7 +122,8 @@ module.exports = {
     let pki = {
       id: 0,
     };
-    const password = ctx.request.body.password || config.pki.password;
+    const certPassword = ctx.request.body.cert_password || config.pki.password;
+    const loginPassword = ctx.request.body.login_password;
     const days = config.pki.days;
     const cn = `CN=${ctx.session.username}`;
 
@@ -130,15 +131,39 @@ module.exports = {
     if (!cn) {
       throw new utils.error.ParamsError('commonname cannot be empty');
     }
+    if (!loginPassword) {
+      throw new utils.error.ParamsError('login password cannot be empty');
+    }
+    if (!certPassword) {
+      throw new utils.error.ParamsError('cert password cannot be empty');
+    }
+    if (loginPassword.indexOf(' ') >= 0 || certPassword.indexOf(' ') >= 0) {
+      throw new utils.error.ParamsError('password cannot include whitespace');
+    }
+
+    // check login password
+    const user = await models.user.findOne({
+      attributes: ['id', 'password'],
+      where: {
+        id: ctx.session.id,
+      },
+    });
+    if (!user) {
+      throw new utils.error.NotFoundError(`no username: ${ctx.session.username}`);
+    }
+    if (!utils.password.check(loginPassword, user.dataValues.password)) {
+      throw new utils.error.ParamsError('login password not right');
+    }
+
     pushdSync(config.pki.dir);
     try {
       const key = await exec(`openssl genrsa -des3 -out ${cn}.key `
-                           + `-passout pass:${password} 2048`);
+                           + `-passout pass:${certPassword} 2048`);
       if (key.code) {
         throw new utils.error.ServerError('generate rsa error');
       }
       const csr = await exec(`openssl req -new -key ${cn}.key -out ${cn}.csr `
-                           + `-passin pass:${password} -subj "${config.pki.subj}/${cn}"`);
+                           + `-passin pass:${certPassword} -subj "${config.pki.subj}/${cn}"`);
       if (csr.code) {
         throw new utils.error.ServerError('req error');
       }
@@ -162,7 +187,8 @@ module.exports = {
       }
 
       const pkcs12 = await exec('openssl pkcs12 -export -clcerts '
-                              + `-passin pass:${password} -in ${cn}.crt -passout pass:${password} `
+                              + `-passin pass:${certPassword} -in ${cn}.crt `
+                              + `-passout pass:${certPassword} `
                               + `-inkey ${cn}.key -out ${cn}.p12`);
       if (pkcs12.code) {
         throw new utils.error.ServerError('pkcs12 error');
