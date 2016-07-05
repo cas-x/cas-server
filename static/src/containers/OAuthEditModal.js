@@ -21,7 +21,6 @@ import Antd, {
 import { reduxForm } from 'redux-form';
 import { saveOAuth, getOAuth } from '../actions';
 
-
 const noop = () => {};
 const RadioGroup = Radio.Group;
 

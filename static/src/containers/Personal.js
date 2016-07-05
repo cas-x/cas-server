@@ -22,6 +22,7 @@ import { reduxForm } from 'redux-form';
 
 import ChangePassword from '../components/ChangePassword';
 import DynamicPassword from '../components/DynamicPassword';
+import PKIModalButton from '../components/PKIModalButton';
 import { fields } from '../reducers/personal';
 import { savePersonal, changePassword, checkDynamicPassword } from '../actions';
 
@@ -93,9 +94,9 @@ const PersonalForm = React.createClass({
     };
     return (
       <div>
-        <div className="row-flex row-flex-center">
-          <div className="col-12 box">
-            <Form onSubmit={handleSubmit(this.savePersonal)}>
+        <Row>
+          <Col span={12} offset={6}>
+            <Form className="box" onSubmit={handleSubmit(this.savePersonal)}>
               <FormItem className="row-flex row-flex-center">
                 <Upload
                   showUploadList={false}
@@ -182,7 +183,8 @@ const PersonalForm = React.createClass({
                   {...key}
                 />
               </Form.Item>
-              <Row className="row-flex row-flex-end">
+              <Row type="flex" align="end">
+                <PKIModalButton />
                 <ChangePassword onSubmit={this.handleChangePassword} />
                 <DynamicPassword
                   onSubmit={this.changeDynamicPassword}
@@ -195,8 +197,8 @@ const PersonalForm = React.createClass({
                 >更新</Button>
               </Row>
             </Form>
-          </div>
-        </div>
+          </Col>
+        </Row>
       </div>
     );
   },

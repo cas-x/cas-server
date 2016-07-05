@@ -10,7 +10,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Router, Route, IndexRoute, IndexRedirect } from 'react-router';
 
-import { App, Login, Personal, Dashboard, DevTools, OAuth, User } from '../containers';
+import { App, Login, Personal, Dashboard, DevTools, OAuth, User, PKIs } from '../containers';
 import { Loading } from '../components';
 import { checkAuth } from '../actions';
 
@@ -30,6 +30,7 @@ class Root extends Component {
           <Route path="dashboard" component={Dashboard}>
             <IndexRoute component={Personal} />
             <Route path="oauth" component={OAuth} />
+            <Route path="PKIs" component={PKIs} />
             <Route path="user" component={User} />
           </Route>
         </Route>

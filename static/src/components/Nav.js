@@ -24,6 +24,11 @@ const navMap = [
     needAdmin: true,
   },
   {
+    router: '/dashboard/PKIs',
+    text: '证书管理',
+    needAdmin: true,
+  },
+  {
     router: '/dashboard',
     text: '个人信息',
     needAdmin: false,
