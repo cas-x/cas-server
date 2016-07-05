@@ -3,7 +3,7 @@
 * @Date:   2016-03-13T22:06:56+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-07-01T13:58:20+08:00
+* @Last modified time: 2016-07-05T10:25:59+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -132,7 +132,7 @@ module.exports = {
     if (!pkis) {
       throw new utils.error.NotFoundError('dont find any pki');
     }
-    const count = await models.oauth.findOne({
+    const count = await models.pki.findOne({
       attributes: [
         [sequelize.fn('COUNT', sequelize.col('id')), 'count'],
       ],
