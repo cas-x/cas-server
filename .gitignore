@@ -41,3 +41,5 @@ pki/*
 !pki/ca.crt
 !pki/x509.cnf.sample
 !pki/x509.cnf.dev
+!pki/x509.cnf.test
+!pki/x509.cnf.prod
