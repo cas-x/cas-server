@@ -3,7 +3,7 @@
 * @Date:   2016-03-14T10:30:11+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-04-21T00:32:20+08:00
+* @Last modified time: 2016-07-05T16:30:09+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -93,70 +93,54 @@ const OnetimeForm = React.createClass({
     };
 
     return (
-      <div>
-      <div className="row-flex row-flex-center">
-        <div
-          className="col-12 box"
-          style={Style}
-        >
-        <Row style={{
-          'borderBottom': '1px solid #ddd',
-          'marginBottom': 15,
-        }}
-        >
-          <Col span="18">
-            <h1 style={H1Style}>Authorize application</h1>
-            <p>
-              <strong style={NameStyle}>{name}</strong> would like permission to access your account
-            </p>
-          </Col>
-          <Col span="6">
-            <img
-              style={AvatarStyle}
-              src="/api/users/self/avatar"
-            />
-          </Col>
-        </Row>
-        <Row>
-        <div
-          style = {{
-            border: '1px solid #ddd',
-            padding: '25px',
-          }}
-        >
-          <Form
-            onSubmit={handleSubmit(this.onSave)}
-            horizontal
-          >
-            <Row>
-              <Col>
-                <Form.Item {...formItemLayout} label="用户名：">
-                  <Input {...username} placeholder="填写字母、下划线、数字" />
-                </Form.Item>
-                <Form.Item {...formItemLayout} label={`${passwordfield}：`}>
-                  <Input {...password} type="password" />
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row>
-              <Col span="8" offset="8">
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  size="large"
-                  style={{ width: '100%' }}
-                  loading={submitting}
-                >
-                  登录
-                </Button>
-              </Col>
-            </Row>
-          </Form>
-        </div>
-        </Row>
-      </div>
-      </div>
-      </div>
+      <Row type="flex" justify="center">
+        <Col className="box" span={12} style={Style} >
+          <Row style={{ borderBottom: '1px solid #ddd', marginBottom: 15 }}>
+            <Col span="18">
+              <h1 style={H1Style}>Authorize application</h1>
+              <p>
+                <strong style={NameStyle}>{name}</strong> would
+                  like permission to access your account
+              </p>
+            </Col>
+            <Col span="6">
+              <img style={AvatarStyle} src="/api/users/self/avatar" alt="avatar" />
+            </Col>
+          </Row>
+          <Row>
+            <div style={{ border: '1px solid #ddd', padding: '25px' }}>
+              <Form
+                onSubmit={handleSubmit(this.onSave)}
+                horizontal
+              >
+                <Row>
+                  <Col>
+                    <Form.Item {...formItemLayout} label="用户名：">
+                      <Input {...username} placeholder="填写字母、下划线、数字" />
+                    </Form.Item>
+                    <Form.Item {...formItemLayout} label={`${passwordfield}：`}>
+                      <Input {...password} type="password" />
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span="8" offset="8">
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      size="large"
+                      style={{ width: '100%' }}
+                      loading={submitting}
+                    >
+                      登录
+                    </Button>
+                  </Col>
+                </Row>
+              </Form>
+            </div>
+          </Row>
+        </Col>
+      </Row>
     );
   },
 
