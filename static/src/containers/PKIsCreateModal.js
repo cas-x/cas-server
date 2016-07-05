@@ -1,16 +1,24 @@
+/**
+* @Author: BingWu Yang (https://github.com/detailyang) <detailyang>
+* @Date:   2016-07-05T09:47:23+08:00
+* @Email:  detailyang@gmail.com
+* @Last modified by:   detailyang
+* @Last modified time: 2016-07-05T10:56:53+08:00
+* @License: The MIT License (MIT)
+*/
+
+
 import React from 'react';
 import Antd, {
   Modal,
   Form,
   Input,
-  Radio,
   Row,
   Col,
 } from 'antd';
 import { reduxForm } from 'redux-form';
 import { savePKIs } from '../actions';
 
-const RadioGroup = Radio.Group;
 const noop = () => {};
 
 const PKIsCreateModal = React.createClass({
@@ -43,18 +51,14 @@ const PKIsCreateModal = React.createClass({
       this.props.onOk();
     })
     .catch(error => {
-      this.setState({
-        formErrors: error.data.errors,
-      });
-      Antd.message.error(error.message, 3);
+      Antd.message.error(error.data && error.data.value || error.message, 3);
     });
   },
 
   render() {
-
     const {
       fields: {
-        commonname, password, days
+        commonname, password, days,
       },
       handleSubmit, submitting,
     } = this.props;
@@ -63,26 +67,16 @@ const PKIsCreateModal = React.createClass({
     const help = (field) => formErrors[field];
 
     return (
-      <Modal title={'新建证书'}
+      <Modal
+        title={'新建证书'}
         visible={this.props.visible}
         confirmLoading={submitting}
         onOk={handleSubmit(this.savePKIs)}
         onCancel={this.props.onCancel}
       >
         <Form>
-          <Form.Item label="commonname：" validateStatus={errorStatus('commonname')} help={help('commonname')}>
-            {
-              commonname.map((child, index) => {
-                return <Input
-                  {...child} key={index} placeholder="填写字母、下划线、数字"
-                  style={{ margin: '5px 0' }}
-                />
-              })
-            }
-            <a href="javascript:;" onClick={() => commonname.addField()}>more commonname</a>
-          </Form.Item>
-          <Row>
-            <Col span="11">
+          <Row gutter={16}>
+            <Col className="gutter-row" span="12">
               <Form.Item
                 label="有效时间："
                 validateStatus={errorStatus('days')}
@@ -91,9 +85,9 @@ const PKIsCreateModal = React.createClass({
                 <Input {...days} />
               </Form.Item>
             </Col>
-            <Col span="11" offset="2">
+            <Col className="gutter-row" span="12">
               <Form.Item
-                label="密码："
+                label="证书密码："
                 validateStatus={errorStatus('password')}
                 help={help('password')}
               >
@@ -101,6 +95,24 @@ const PKIsCreateModal = React.createClass({
               </Form.Item>
             </Col>
           </Row>
+          <Form.Item
+            label={
+              <a href="javascript:;" onClick={() => commonname.addField()}>
+                common name
+              </a>
+            }
+            validateStatus={errorStatus('commonname')}
+            help={help('commonname')}
+          >
+            {
+              commonname.map((child, index) => {
+                return (<Input
+                  {...child} key={index} placeholder="填写字母、下划线、数字 (域名)"
+                  style={{ margin: '5px 0' }}
+                />);
+              })
+            }
+          </Form.Item>
         </Form>
       </Modal>
     );
@@ -109,12 +121,12 @@ const PKIsCreateModal = React.createClass({
 
 
 export default reduxForm({
-    form: 'PKIsCreateModal',
-    fields: ['commonname[]', 'password', 'days'],
-    initialValues: {
-      commonname: ['']
-    }
+  form: 'PKIsCreateModal',
+  fields: ['commonname[]', 'password', 'days'],
+  initialValues: {
+    commonname: [''],
   },
-  null,
-  { savePKIs }
-)(PKIsCreateModal)
+},
+null,
+{ savePKIs },
+)(PKIsCreateModal);

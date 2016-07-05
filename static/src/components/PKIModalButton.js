@@ -3,7 +3,7 @@
 * @Date:   2016-07-05T09:47:23+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-07-05T10:22:02+08:00
+* @Last modified time: 2016-07-05T11:49:16+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -119,7 +119,6 @@ export default Form.create()(React.createClass({
           required: true,
           message: '证书密码至少4位英文数字',
           whitespace: false,
-          len: 4,
         },
       ],
     });

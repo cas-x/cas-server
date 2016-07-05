@@ -1,5 +1,15 @@
+/**
+* @Author: BingWu Yang (https://github.com/detailyang) <detailyang>
+* @Date:   2016-07-05T09:47:23+08:00
+* @Email:  detailyang@gmail.com
+* @Last modified by:   detailyang
+* @Last modified time: 2016-07-05T11:24:27+08:00
+* @License: The MIT License (MIT)
+*/
+
+
 import React, { Component } from 'react';
-import Antd, { Table, Button, Row, Col, Input, Icon, Popconfirm } from 'antd';
+import Antd, { Table, Button, Tooltip, Row, Col, Input, Icon, Popconfirm } from 'antd';
 import { connect } from 'react-redux';
 
 import PKIsCreateModal from './PKIsCreateModal';
@@ -16,7 +26,7 @@ class PKIs extends Component {
       editModalId: 0,
     };
 
-    this.handleSearchClick = ::this.handleSearchClick
+    this.handleSearchClick = ::this.handleSearchClick;
   }
 
   componentWillMount() {
@@ -59,10 +69,18 @@ class PKIs extends Component {
         title: 'id',
         dataIndex: 'id',
         key: 'id',
-      },{
+      }, {
         title: '证书名',
         dataIndex: 'name',
         key: 'name',
+        render: (value) => {
+          const name = value.length > 20 ? `${value.slice(0, 20)}..` : value;
+          return (
+            <Tooltip title={value}>
+              <span>{name}</span>
+            </Tooltip>
+          );
+        },
       }, {
         title: '有效时间',
         dataIndex: 'days',
@@ -72,12 +90,43 @@ class PKIs extends Component {
         dataIndex: 'created_at',
         key: 'created_at',
       }, {
+        title: 'key',
+        dataIndex: 'key',
+        key: 'key',
+        render(text, record) {
+          const href = `/api/pkis/server/${record.id}/key`;
+          return (<a href={href} target="_blank">下载</a>);
+        },
+      }, {
+        title: 'csr',
+        dataIndex: 'csr',
+        key: 'csr',
+        render(text, record) {
+          const href = `/api/pkis/server/${record.id}/csr`;
+          return (<a href={href} target="_blank">下载</a>);
+        },
+      }, {
+        title: 'crt',
+        dataIndex: 'crt',
+        key: 'crt',
+        render(text, record) {
+          const href = `/api/pkis/server/${record.id}/crt`;
+          return (<a href={href} target="_blank">下载</a>);
+        },
+      }, {
+        title: 'PKCS12',
+        dataIndex: 'pkcs12',
+        key: 'pkcs12',
+        render(text, record) {
+          const href = `/api/pkis/server/${record.id}/pkcs12`;
+          return (<a href={href} target="_blank">下载</a>);
+        },
+      }, {
         title: '操作',
         key: 'action',
         render: (text, record) => {
           return (
             <div>
-              <a href={`/api/pkis/server/${record.id}/pkcs12`} target="_blank">下载</a>
               <Popconfirm
                 placement="left"
                 title="确认删除？"
@@ -86,8 +135,8 @@ class PKIs extends Component {
                 <Button type="ghost" size="small">删除</Button>
               </Popconfirm>
             </div>
-          )
-        }
+          );
+        },
       },
     ];
 
