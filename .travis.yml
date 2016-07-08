@@ -1,7 +1,6 @@
 sudo: true
 language: node_js
 node_js:
-  - "4"
   - "5"
 services:
   - mysql
