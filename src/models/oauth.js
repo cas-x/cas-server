@@ -2,7 +2,7 @@
  * @Author: detailyang
  * @Date:   2016-02-18 14:07:19
 * @Last modified by:   detailyang
-* @Last modified time: 2016-04-04T23:20:24+08:00
+* @Last modified time: 2016-07-11T13:24:27+08:00
  */
 
 module.exports = (sequelize, DataTypes) => {
@@ -94,7 +94,6 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     associate: () => {
-      // User.hasMany(models.Post);
     },
     freezeTableName: true,
     underscored: true,

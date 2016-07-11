@@ -2,7 +2,7 @@
  * @Author: detailyang
  * @Date:   2016-02-18 14:07:19
 * @Last modified by:   detailyang
-* @Last modified time: 2016-06-29T14:50:03+08:00
+* @Last modified time: 2016-07-11T13:24:30+08:00
  */
 
 
@@ -60,7 +60,6 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     associate: () => {
-      // User.hasMany(models.Post);
     },
     freezeTableName: true,
     underscored: true,
