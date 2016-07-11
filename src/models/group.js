@@ -2,7 +2,7 @@
  * @Author: detailyang
  * @Date:   2016-02-18 14:07:19
 * @Last modified by:   detailyang
-* @Last modified time: 2016-07-11T13:59:40+08:00
+* @Last modified time: 2016-07-11T15:06:40+08:00
  */
 
 module.exports = (sequelize, DataTypes) => {
@@ -24,22 +24,10 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     desc: {
-      type: DataTypes.STRING(512),
+      type: DataTypes.STRING(256),
       allowNull: false,
       defaultValue: '',
-      unique: true,
-      validate: {
-        len: {
-          args: [1, 512],
-          msg: '长度必须为1-512位',
-        },
-      },
-    },
-    // 0 default 1 static 2 dynamic 3 static+dynamic
-    uid: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      defaultValue: 0,
+      validate: {},
     },
     is_delete: {
       type: DataTypes.BOOLEAN,
