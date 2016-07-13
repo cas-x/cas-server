@@ -20,7 +20,7 @@
   "author": "nino, detailyang",
   "license": "MIT",
   "dependencies": {
-    "asn1.js": "^4.6.2",
+    "asn1.js": "^4.7.0",
     "asn1.js-rfc2560": "^4.0.0",
     "avatar-generator": "^1.0.7",
     "babel": "^6.5.2",
