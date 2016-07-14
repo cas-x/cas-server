@@ -2,7 +2,7 @@
  * @Author: detailyang
  * @Date:   2016-02-18 12:43:02
 * @Last modified by:   detailyang
-* @Last modified time: 2016-06-29T15:06:09+08:00
+* @Last modified time: 2016-07-14T14:08:18+08:00
  */
 import koarouter from 'koa-router';
 import controllers from '../../controllers';
@@ -27,10 +27,3 @@ router.get('/client/key', controllers.pki.client.getKeyByUid);
 router.get('/client/pkcs12', controllers.pki.client.getPkcs12ByUid);
 router.get('/client/crt', controllers.pki.client.getCrtByUid);
 router.post('/client', controllers.pki.client.post);
-router.get('/server', controllers.pki.server.get);
-router.get('/server/:id(\\d+)/pkcs12', adminOnly, controllers.pki.server.getPkcs12);
-router.get('/server/:id(\\d+)/csr', adminOnly, controllers.pki.server.getCsr);
-router.get('/server/:id(\\d+)/key', adminOnly, controllers.pki.server.getKey);
-router.get('/server/:id(\\d+)/crt', controllers.pki.server.getCrt);
-router.post('/server', adminOnly, controllers.pki.server.post);
-router.delete('/server/:id(\\d+)', adminOnly, controllers.pki.server.delete);
