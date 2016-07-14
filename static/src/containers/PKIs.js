@@ -94,7 +94,7 @@ class PKIs extends Component {
         dataIndex: 'key',
         key: 'key',
         render(text, record) {
-          const href = `/api/pkis/server/${record.id}/key`;
+          const href = `/admin/pkis/server/${record.id}/key`;
           return (<a href={href} target="_blank">下载</a>);
         },
       }, {
@@ -102,7 +102,7 @@ class PKIs extends Component {
         dataIndex: 'csr',
         key: 'csr',
         render(text, record) {
-          const href = `/api/pkis/server/${record.id}/csr`;
+          const href = `/admin/pkis/server/${record.id}/csr`;
           return (<a href={href} target="_blank">下载</a>);
         },
       }, {
@@ -110,7 +110,7 @@ class PKIs extends Component {
         dataIndex: 'crt',
         key: 'crt',
         render(text, record) {
-          const href = `/api/pkis/server/${record.id}/crt`;
+          const href = `/admin/pkis/server/${record.id}/crt`;
           return (<a href={href} target="_blank">下载</a>);
         },
       }, {
@@ -118,7 +118,7 @@ class PKIs extends Component {
         dataIndex: 'pkcs12',
         key: 'pkcs12',
         render(text, record) {
-          const href = `/api/pkis/server/${record.id}/pkcs12`;
+          const href = `/admin/pkis/server/${record.id}/pkcs12`;
           return (<a href={href} target="_blank">下载</a>);
         },
       }, {

@@ -9,7 +9,7 @@ export const fetchPKIsList = () =>
     return dispatch({
       [CALL_API]: {
         types: [PKIS_LIST_REQUEST, PKIS_LIST_SUCCESS, PKIS_LIST_FAILURE],
-        endpoint: '/api/pkis/server',
+        endpoint: '/admin/pkis/server',
         body: pick(getState().PKIs, 'total', 'per_page', 'page', 'field', 'keyword'),
       },
     })
@@ -29,7 +29,7 @@ export const setPKIsKeyword = (keyword) => ({
 });
 
 export const savePKIs = (values, dispatch) =>
-  fetch('/api/pkis/server/', {
+  fetch('/admin/pkis/server/', {
     method: 'POST',
     body: values,
   })
@@ -45,5 +45,5 @@ export const setPKIsPage = (page) => ({
 
 export const deletePKIs = (id) =>
   (dispatch, getState) => {
-    return fetch(`/api/pkis/server/${id}`, { method: 'DELETE' });
+    return fetch(`/admin/pkis/server/${id}`, { method: 'DELETE' });
   };
