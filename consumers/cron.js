@@ -3,7 +3,7 @@
 * @Date:   2016-03-13T21:08:41+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-05-06T22:23:17+08:00
+* @Last modified time: 2016-07-18T09:22:37+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -14,8 +14,6 @@ require('babel-core/register')({
 require('babel-polyfill');
 
 const Queue = require('bull');
-const co = require('co');
-const utils = require('../src/utils');
 const config = require('../src/config');
 const models = require('../src/models');
 
