@@ -20,8 +20,22 @@ module.exports = {
       },
     });
     if (!group) {
-      throw new utils.error.ServerError('delete oauth error');
+      throw new utils.error.ServerError('delete group error');
     }
+    ctx.body = ctx.return;
+  },
+
+  async getById(ctx) {
+    const group = await models.group.findOne({
+      where: {
+        id: ctx.params.id,
+      },
+    });
+
+    if (!group) {
+      throw new utils.error.ServerError('get group error');
+    }
+    ctx.return.data.value = group;
     ctx.body = ctx.return;
   },
 

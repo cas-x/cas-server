@@ -38,7 +38,7 @@ module.exports = {
 
     // it's not necessary to await in parallel for performance
     const users = await models.group.findAll({
-      attributes: ['id', 'name', 'desc'],
+      attributes: ['id', 'name', 'desc', 'created_at'],
       where: where,
       offset: (ctx.request.page - 1) * ctx.request.per_page,
       limit: ctx.request.per_page,

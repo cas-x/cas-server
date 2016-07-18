@@ -22,3 +22,5 @@ router.get('/', controllers.group.list.get);
 router.post('/', controllers.group.list.post);
 router.delete('/:id(\\d+)', controllers.group.detail.deleteById);
 router.put('/:id(\\d+)', controllers.group.detail.updateById);
+router.get('/:id(\\d+)', controllers.group.detail.getById);
+

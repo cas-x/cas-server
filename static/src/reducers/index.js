@@ -13,3 +13,4 @@ export personal from './personal';
 export OAuth from './OAuth';
 export user from './user';
 export PKIs from './PKIs';
+export group from './group';
