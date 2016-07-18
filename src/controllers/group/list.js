@@ -3,7 +3,7 @@
 * @Date:   2016-07-11T10:25:15+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-07-11T16:25:20+08:00
+* @Last modified time: 2016-07-18T19:54:34+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -89,6 +89,26 @@ module.exports = {
 
       ctx.body = ctx.return;
     },
+
+    async delete(ctx) {
+      const gid = ctx.params.id;
+      const pid = ctx.params.pid;
+
+      const group_user = await models.group_user.update({
+        is_delete: true,
+      }, {
+        where: {
+          group_id: gid,
+          user_id: pid,
+        },
+      });
+      if (!group_user) {
+        throw new utils.error.ServerError('delete group_user error');
+      }
+
+      ctx.body = ctx.return;
+    },
+
     async get(ctx) {
       const group_id = ctx.params.id || 0;
       const where = {
