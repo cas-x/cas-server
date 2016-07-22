@@ -85,7 +85,7 @@
     "isomorphic-fetch": "^2.2.1",
     "istanbul": "^1.0.0-alpha.2",
     "jquery": "^3.0.0",
-    "mocha": "^2.4.5",
+    "mocha": "^2.5.3",
     "node-sass": "^3.4.2",
     "qrcode.react": "^0.6.0",
     "react": "^15.1.0",
