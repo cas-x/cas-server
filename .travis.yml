@@ -21,6 +21,7 @@ before_install:
 before_script:
   - make pre-test
 script:
+  - ls -lah /home/travis/build/cas-x/cas-server/src/config/src/config
   - make cover-test
 after_success:
   - npm install codecov
