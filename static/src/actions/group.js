@@ -40,21 +40,24 @@ export const setGroupPage = (page) => ({
 });
 
 export const deleteGroup = (groupId) =>
-  (dispatch, getState) => {
+  () => {
     return fetch(`/admin/groups/${groupId}`, { method: 'DELETE' });
   };
 
-export const saveGroup = (values, dispatch) =>
-  fetch('/admin/groups/' + (values.id ? values.id : ''), {
+export const saveGroup = (values) => {
+  const id = values.id ? values.id : '';
+
+  return fetch(`/admin/groups/${id}`, {
     method: values.id ? 'PUT' : 'POST',
     body: values,
   })
   .catch(error => {
     return Promise.reject(error);
   });
+};
 
 export const resetGroup = (groupId) =>
-  (dispatch, getState) => {
+  () => {
     return fetch(`/admin/groups/${groupId}/staticpassword`, {
       method: 'PUT',
       body: {

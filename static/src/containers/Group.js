@@ -27,7 +27,7 @@ class Group extends Component {
       editModalId: 0,
       memberModalVisible: false,
       memberModalTitle: '',
-      memberModalId: 0
+      memberModalId: 0,
     };
   }
 
@@ -68,8 +68,8 @@ class Group extends Component {
     this.setState({
       memberModalTitle: record.name,
       memberModalId: record.id,
-      memberModalVisible: true
-    })
+      memberModalVisible: true,
+    });
   }
 
   fetchGroupList() {
@@ -99,12 +99,16 @@ class Group extends Component {
         render: (value, record) => {
           return (
             <div>
-              <Button type="ghost" size="small"
+              <Button
+                type="ghost"
+                size="small"
                 onClick={() => this.openMemberModal(record)}
               >
                 成员
               </Button>
-              <Button type="ghost" size="small"
+              <Button
+                type="ghost"
+                size="small"
                 onClick={() => this.handleEditClick(record)}
               >
                 编辑
@@ -168,7 +172,7 @@ class Group extends Component {
               onChange={e => { setGroupKeyword(e.target.value); }}
               onKeyDown={::this.handleKeywordKeyDown}
             />
-          <div className="ant-input-group-wrap">
+            <div className="ant-input-group-wrap">
               <Button className="ant-search-btn" onClick={this.handleSearchClick}>
                 <Icon type="search" />
               </Button>
@@ -234,6 +238,6 @@ class Group extends Component {
 }
 
 export default connect(
-  ({group}) => ({group}),
+  ({ group }) => ({ group }),
   { fetchGroupList, setGroupPage, setGroupKeyword, deleteGroup }
-)(Group)
+)(Group);

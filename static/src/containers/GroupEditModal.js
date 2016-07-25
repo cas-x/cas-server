@@ -3,16 +3,11 @@ import Antd, {
   Modal,
   Form,
   Input,
-  Checkbox,
-  Radio,
-  Row,
-  Col,
 } from 'antd';
 import { reduxForm } from 'redux-form';
 import { saveGroup, getGroup } from '../actions';
 
 const noop = () => {};
-const RadioGroup = Radio.Group;
 
 const GroupEditModal = React.createClass({
   propTypes: {
@@ -52,11 +47,11 @@ const GroupEditModal = React.createClass({
       Antd.message.success(msg);
       this.props.onOk();
     })
-    .catch(error => {
+    .catch((error) => {
       this.setState({
         formErrors: error.data.errors,
       });
-      Antd.message.error(error.message, 3);
+      Antd.message.error(error.data.errors.name, 3);
     });
   },
 
@@ -70,14 +65,16 @@ const GroupEditModal = React.createClass({
     const help = (field) => formErrors[field];
 
     return (
-      <Modal title={this.props.id ? '编辑' : '新建'}
+      <Modal
+        title={this.props.id ? '编辑' : '新建'}
         visible={this.props.visible}
         confirmLoading={submitting}
         onOk={handleSubmit(this.saveGroup)}
         onCancel={this.props.onCancel}
       >
         <Form>
-          <Form.Item label="组名"
+          <Form.Item
+            label="组名"
             validateStatus={errorStatus('name')}
             help={help('username')}
           >

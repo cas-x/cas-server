@@ -4,11 +4,9 @@ import Antd, {
   Modal,
   Button,
   Select,
-  Form,
-  Input,
+  Popconfirm,
   Row,
   Col,
-  Popconfirm
 } from 'antd';
 import { fetch } from '../utils';
 
@@ -41,7 +39,7 @@ const GroupEditModal = React.createClass({
       page: 1,
       per_page: 20,
       total: 0,
-      selectMemberID: null
+      selectMemberID: null,
     };
   },
 
@@ -54,25 +52,25 @@ const GroupEditModal = React.createClass({
     return fetch('/admin/users', {
       method: 'GET',
       body: {
-        per_page: 10000
-      }
+        per_page: 10000,
+      },
     }).then(data => this.setState({
-      members: data.value
-    }))
+      members: data.value,
+    }));
   },
 
   fetchGroupMembers() {
     const { id } = this.props;
     this.setState({
-      loading: true
+      loading: true,
     });
     fetch(`/admin/groups/${id}/peoples`)
       .then(data => this.setState({
         list: data.value,
         total: data.total,
-        loading: false
+        loading: false,
       }))
-      .catch(() => this.setState({ loading: false }))
+      .catch(() => this.setState({ loading: false }));
   },
 
   handleAddMember() {
@@ -82,30 +80,30 @@ const GroupEditModal = React.createClass({
     fetch(`/admin/groups/${id}/peoples`, {
       method: 'POST',
       body: {
-        user_id: selectMemberID
-      }
+        user_id: selectMemberID,
+      },
     }).then(() => {
       Antd.message.success('添加成功');
-      this.fetchGroupMembers()
-    }).catch(data =>
+      this.fetchGroupMembers();
+    }).catch(() =>
       Antd.message.error('添加失败')
     );
   },
 
   handleMemberSelectChange(id) {
     this.setState({
-      selectMemberID: id
+      selectMemberID: id,
     });
   },
 
   handleDeleteClick(record) {
     const { id } = this.props;
     fetch(`/admin/groups/${id}/peoples/${record.user_id}`, {
-      method: 'DELETE'
+      method: 'DELETE',
     }).then(() => {
       Antd.message.success('删除成功');
-      this.fetchGroupMembers()
-    }).catch(data =>
+      this.fetchGroupMembers();
+    }).catch(() =>
       Antd.message.error('删除失败')
     );
   },
@@ -113,18 +111,22 @@ const GroupEditModal = React.createClass({
   renderTable() {
     const avatarStyle = {
       width: 50,
-      height: 50
-    }
+      height: 50,
+    };
     const columns = [
       {
         title: '头像',
         dataIndex: 'name',
         key: 'name',
-        render: (value, record) =>
-          <img
-            style={avatarStyle}
-            src={`/public/users/avatar/${record.username}`} alt="avatar"
-          />
+        render(value, record) {
+          return (
+            <img
+              style={avatarStyle}
+              src={`/public/users/avatar/${record.username}`}
+              alt="avatar"
+            />
+          );
+        },
       }, {
         title: '用户名',
         dataIndex: 'username',
@@ -191,6 +193,7 @@ const GroupEditModal = React.createClass({
         width={800}
         title={this.props.title}
         visible={this.props.visible}
+        onOk={this.props.onOk}
         onCancel={this.props.onCancel}
       >
         <Row style={{ marginBottom: 5 }}>
