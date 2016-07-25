@@ -10,8 +10,8 @@ import Antd, {
 } from 'antd';
 import { fetch } from '../utils';
 
-const Option = Select.Option;
 
+const Option = Select.Option;
 const noop = () => {};
 
 const GroupEditModal = React.createClass({
@@ -153,7 +153,7 @@ const GroupEditModal = React.createClass({
     ];
 
     const {
-      list, loading, page, per_page, total
+      list, loading, page, per_page, total,
     } = this.state;
 
     list.forEach(item => {
@@ -167,10 +167,10 @@ const GroupEditModal = React.createClass({
       showTotal: (_total) => `共 ${_total} 条`,
       onChange: (_page) => {
         this.setState({
-          page: _page
+          page: _page,
         }, () => {
           this.fetchGroupMembers();
-        })
+        });
       },
     };
 
@@ -185,7 +185,7 @@ const GroupEditModal = React.createClass({
 
   render() {
     const {
-      members
+      members,
     } = this.state;
 
     return (
@@ -198,7 +198,8 @@ const GroupEditModal = React.createClass({
       >
         <Row style={{ marginBottom: 5 }}>
           <Col span={12} offset={6}>
-            <Select showSearch
+            <Select
+              showSearch
               style={{ width: 200 }}
               placeholder="请选择人员"
               optionFilterProp="children"
