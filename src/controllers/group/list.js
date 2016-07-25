@@ -94,9 +94,7 @@ module.exports = {
       const gid = ctx.params.id;
       const pid = ctx.params.pid;
 
-      const group_user = await models.group_user.update({
-        is_delete: true,
-      }, {
+      const group_user = await models.group_user.destroy({
         where: {
           group_id: gid,
           user_id: pid,
@@ -150,8 +148,11 @@ module.exports = {
           if (u.id === uid) {
             return users[i];
           }
+
           return null;
         }
+
+        return null;
       };
 
       for (const i in group_users) {
