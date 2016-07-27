@@ -206,7 +206,6 @@ module.exports = {
         callback += `?code=${code}`;
       }
       callback += `&qs=${qs}`;
-      console.log(qs);
 
       ctx.return.data.value = callback;
       ctx.body = ctx.return;
