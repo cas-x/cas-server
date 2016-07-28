@@ -33,7 +33,8 @@ module.exports = {
         where.username = username;
       }
       const user = await models.user.findOne({
-        attributes: ['id', 'password', 'username'],
+        attributes: ['id', 'password', 'username', 'gender', 'realname', 'aliasname', 'mobile',
+                    'email'],
         where: where,
       });
       if (!user) {
