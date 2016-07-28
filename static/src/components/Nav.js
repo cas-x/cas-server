@@ -29,6 +29,11 @@ const navMap = [
     needAdmin: true,
   },
   {
+    router: '/dashboard/group',
+    text: '分组管理',
+    needAdmin: true,
+  },
+  {
     router: '/dashboard',
     text: '个人信息',
     needAdmin: false,

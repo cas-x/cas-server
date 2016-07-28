@@ -16,4 +16,5 @@ export Root from './Root';
 export OAuth from './OAuth';
 export User from './User';
 export PKIs from './PKIs';
+export Group from './Group';
 export DevTools from './DevTools';

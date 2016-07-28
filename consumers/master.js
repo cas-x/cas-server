@@ -3,7 +3,7 @@
 * @Date:   2016-03-13T21:08:41+08:00
 * @Email:  detailyang@gmail.com
 * @Last modified by:   detailyang
-* @Last modified time: 2016-05-06T22:21:24+08:00
+* @Last modified time: 2016-07-18T09:23:31+08:00
 * @License: The MIT License (MIT)
 */
 
@@ -102,11 +102,12 @@ masterQueue.process((msg, done) => {
         const user = yield models.user.findOne({
           attributes: ['id', 'username', 'is_admin', 'gender',
           'realname', 'is_delete', 'aliasname', 'mobile', 'email', 'key'],
-          where
+          where,
         });
         if (!user) {
           throw new utils.error.NotFoundError('dont find user');
         }
+        delete user.dataValues.md5_password;
         delete user.dataValues.password;
         delete user.dataValues.avatar;
         ocs.map((oc) => {

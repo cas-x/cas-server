@@ -13,3 +13,4 @@ export * from './personal';
 export * from './oauth';
 export * from './user';
 export * from './PKIs';
+export * from './group';

@@ -1,14 +1,18 @@
 /*
  * @Author: detailyang
  * @Date:   2016-03-08 14:43:34
- * @Last Modified by:   detailyang
- * @Last Modified time: 2016-03-08 14:48:01
+* @Last modified by:   detailyang
+* @Last modified time: 2016-07-19T10:00:34+08:00
  */
 
 import user from './user';
 import oauth from './oauth';
+import group from './group';
+import pki from './pki';
 
 module.exports = {
-  'user': user,
-  'oauth': oauth,
+  pki,
+  user,
+  oauth,
+  group,
 };

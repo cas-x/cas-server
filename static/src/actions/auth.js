@@ -38,7 +38,7 @@ export const login = (values, dispatch) =>
   });
 
 export const logout = () =>
-  (dispatch, getState) =>
+  (dispatch) =>
     fetch('/public/users/logout', {
       method: 'POST',
     })

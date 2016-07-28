@@ -2,7 +2,7 @@
  * @Author: detailyang
  * @Date:   2016-03-08 12:04:19
 * @Last modified by:   detailyang
-* @Last modified time: 2016-03-13T03:58:47+08:00
+* @Last modified time: 2016-07-11T16:43:28+08:00
  */
 
 import sequelize from 'sequelize';
@@ -12,6 +12,7 @@ module.exports = async(ctx, next) => {
   try {
     await next();
   } catch (err) {
+    console.log(err);
     if (err instanceof sequelize.ValidationError) {
       const errors = {};
       for (const e in err.errors) {
@@ -21,6 +22,12 @@ module.exports = async(ctx, next) => {
       ctx.return.data.errors = errors;
       ctx.return.code = utils.return.getCode('failure');
       ctx.return.msg = utils.return.getMsg('failure');
+      ctx.body = ctx.return;
+      return;
+    } else if (err instanceof sequelize.UniqueConstraintError) {
+      ctx.return.code = utils.return.getCode('param');
+      ctx.return.msg = utils.return.getMsg('param');
+      ctx.return.value = 'duplicate';
       ctx.body = ctx.return;
       return;
     } else if (err instanceof sequelize.DatabaseError
