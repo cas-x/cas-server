@@ -27,8 +27,7 @@ module.exports = {
   },
 
   async crl(ctx) {
-    console.log('receive crl');
-    ctx.body = 'abcd';
+    ctx.body = 'we havent implement crl yet:(';
   },
 
   ocsp: {
