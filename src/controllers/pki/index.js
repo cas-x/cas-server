@@ -10,6 +10,7 @@
 
 module.exports = {
   ca: require('./ca'),
+  crt: require('./crt'),
   client: require('./client'),
   server: require('./server'),
 };

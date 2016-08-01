@@ -85,7 +85,6 @@ module.exports = {
         throw new utils.error.ParamsError('only support ocsp request');
       }
       const ocsp = ctx.request.body;
-      console.log(ocsp);
       const where = { id: [] };
       let ocspReq = {};
 
