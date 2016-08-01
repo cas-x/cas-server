@@ -26,3 +26,4 @@ router.post('/ocsp', async (ctx, next) => {
 router.get('/ocsp/:ocsp(.+)', controllers.pki.ca.ocsp.get);
 router.get('/crl', controllers.pki.ca.crl);
 router.get('/ca', controllers.pki.ca.get);
+router.post('/crt', controllers.pki.crt.check);
