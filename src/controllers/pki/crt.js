@@ -22,8 +22,6 @@ module.exports = {
     const cdn = pki.parse_dn(ctx.request.body.cdn);
     const sdn = pki.parse_dn(ctx.request.body.sdn);
     const sn = ctx.request.body.sn;
-    const nb = ctx.request.body.nb;
-    const na = ctx.request.na;
 
     const cacert = x509.parseCert(config.pki.ca.crt);
     const caissuer = cacert.issuer;
@@ -56,7 +54,7 @@ module.exports = {
       throw new utils.error.ParamsError(`dont find the certificate ${cn}`);
     }
     crtrow.created_at.setDate(crtrow.created_at.getDate() + crtrow.days);
-    if (crtrow.created_at <= nb || crtrow.created_at >= na) {
+    if (crtrow.created_at <= new Date()) {
       throw new utils.error.ParamsError('your cert expired');
     }
 
