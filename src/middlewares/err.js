@@ -32,7 +32,9 @@ module.exports = async(ctx, next) => {
       return;
     } else if (err instanceof sequelize.DatabaseError
             || err instanceof sequelize.ConnectionRefusedError
-            || err instanceof sequelize.ConnectionError) {
+            || err instanceof sequelize.ConnectionError
+            || err instanceof SyntaxError
+      ) {
       // production record log
       console.log(err);
       ctx.return.code = utils.return.getCode('servererror');
