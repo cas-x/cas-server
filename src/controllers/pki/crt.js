@@ -9,6 +9,7 @@
 
 
 import x509 from 'x509';
+import jwt from 'jsonwebtoken';
 
 import config from '../../config';
 import models from '../../models';
@@ -18,6 +19,7 @@ import pki from '../../utils/pki';
 
 module.exports = {
   async check(ctx) {
+    const inhost = parseInt(ctx.request.body.inhost, 10);
     const host = ctx.request.body.host;
     const cdn = pki.parse_dn(ctx.request.body.cdn);
     const sdn = pki.parse_dn(ctx.request.body.sdn);
@@ -58,7 +60,7 @@ module.exports = {
       throw new utils.error.ParamsError('your cert expired');
     }
 
-    if (host) {
+    if (inhost) {
       const group = await models.group.findOne({
         attributes: ['id'],
         where: {
@@ -67,8 +69,7 @@ module.exports = {
         },
       });
       if (!group) {
-        ctx.body = ctx.return;
-        return;
+        throw new utils.error.ParamsError(`${host} group not found`);
       }
 
       const group_user = await models.group_user.findOne({
@@ -79,10 +80,32 @@ module.exports = {
         },
       });
       if (!group_user) {
-        throw new utils.error.ParamsError(`you are not allowed to access the host ${host}`);
+        throw new utils.error.ParamsError(`you are not allowed to access the host:${host}`);
       }
     }
 
+    const oc = await models.oauth.findOne({
+      attributes: ['id', 'secret'],
+      where: {
+        is_delete: false,
+        domain: host,
+      },
+    });
+    if (!oc) {
+      throw new utils.error.ParamsError(`the host:${host} is not authorized oauth`);
+    }
+
+    const token = jwt.sign({
+      username: cdn.CN,
+      iat: Math.floor(Date.now() / 1000) - 15,
+      iss: config.app.name,
+      exp: Math.floor(Date.now() / 1000) + config.jwt.expire,
+      sub: cdn.CN,
+      aud: host
+
+    }, oc.secret, { algorithm: 'HS256' })
+
+    ctx.return.data.value = token;
     ctx.body = ctx.return;
   },
 };

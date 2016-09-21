@@ -34,10 +34,11 @@
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.5.0",
     "babel-preset-stage-3": "^6.5.0",
-    "bcrypt": "^0.8.6",
+    "bcrypt": "^0.8.7",
     "bull": "^1.0.0-rc2",
     "co": "^4.6.0",
     "ioredis": "^2.0.1",
+    "jsonwebtoken": "^7.1.9",
     "koa": "^2.0.0-alpha.3",
     "koa-body": "^1.4.0",
     "koa-bodyparser": "^3.0.0",
@@ -70,7 +71,7 @@
     "zxcvbn": "^4.2.0"
   },
   "devDependencies": {
-    "antd": "^1.1.0",
+    "antd": "^1.11.1",
     "ava": "^0.15.1",
     "babel-core": "^6.6.5",
     "babel-loader": "^6.2.4",

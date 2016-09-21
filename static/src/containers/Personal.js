@@ -97,19 +97,21 @@ const PersonalForm = React.createClass({
         <Row>
           <Col span={12} offset={6}>
             <Form className="box" onSubmit={handleSubmit(this.savePersonal)}>
-              <FormItem className="row-flex row-flex-center">
-                <Upload
-                  showUploadList={false}
-                  name="avatar"
-                  action="/api/users/self/avatar"
-                  onChange={this.props.onUpload}
-                >
-                  <img src="/api/users/self/avatar"
-                    width="120"
-                    className="avatar"
-                  />
-                </Upload>
-              </FormItem>
+              <div style={{ textAlign: 'center' }}>
+                <FormItem>
+                  <Upload
+                    showUploadList={false}
+                    name="avatar"
+                    action="/api/users/self/avatar"
+                    onChange={this.props.onUpload}
+                  >
+                    <img src="/api/users/self/avatar"
+                      width="120"
+                      className="avatar"
+                    />
+                  </Upload>
+                </FormItem>
+              </div>
               <Row>
                 <Col span="11">
                   <Form.Item
