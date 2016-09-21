@@ -7,6 +7,12 @@
 
 
 module.exports = {
+  'app': {
+    'name': 'CAS',
+  },
+  'jwt': {
+    'expire': 15 * 60, // 15 minute
+  },
   'pki': require('./pki'),
   'mysql': require('./mysql'),
   'session': require('./session'),
