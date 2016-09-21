@@ -13,7 +13,7 @@ import Antd, { Table, Button, Tooltip, Row, Col, Input, Icon, Popconfirm } from 
 import { connect } from 'react-redux';
 
 import PKIsCreateModal from './PKIsCreateModal';
-import { fetchPKIsList, setKPIsPage, setPKIsKeyword, deletePKIs } from '../actions';
+import { fetchPKIsList, setPKIsPage, setPKIsKeyword, deletePKIs } from '../actions';
 
 const InputGroup = Input.Group;
 
@@ -142,7 +142,7 @@ class PKIs extends Component {
 
     const {
       PKIs: { list, loading, page, per_page, total },
-      setKPIsPage,
+      setPKIsPage,
     } = this.props;
 
     list.forEach(item => {
@@ -155,7 +155,7 @@ class PKIs extends Component {
       pageSize: per_page,
       showTotal: (_total) => `共 ${_total} 条`,
       onChange: (_page) => {
-        setKPIsPage(_page);
+        setPKIsPage(_page);
         this.fetchPKIsList();
       },
     };
@@ -233,5 +233,5 @@ class PKIs extends Component {
 
 export default connect(
   ({PKIs}) => ({PKIs}),
-  { fetchPKIsList, setKPIsPage, setPKIsKeyword, deletePKIs }
+  { fetchPKIsList, setPKIsPage, setPKIsKeyword, deletePKIs }
 )(PKIs)
