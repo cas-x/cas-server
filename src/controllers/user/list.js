@@ -64,6 +64,16 @@ module.exports = {
       ],
       where: where,
     });
+
+    for (let i = 0; i < users.length; i ++) {
+      const user = users[i];
+      user.dataValues.notp = utils.password.otpqrcode(
+        utils.password.encrypt(
+          user.username + user.password, config.notp.salt),
+        config.notp.label);
+      delete user.dataValues.password;
+    }
+    
     ctx.return.data = {
       value: users,
       total: count.dataValues.count,

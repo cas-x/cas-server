@@ -10,6 +10,9 @@ import base32 from 'thirty-two';
 import notp from 'notp';
 
 function check(plaintext, cipher) {
+  if (!plaintext || !cipher) {
+    return false;
+  }
   return bcrypt.compareSync(plaintext, cipher);
 }
 
