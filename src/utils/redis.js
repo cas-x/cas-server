@@ -50,7 +50,7 @@ export default class RedisStore extends Store {
     return opts.sid;
   }
 
-  async destory(sid) {
+  async destroy(sid) {
     return await this.redis.del(this.getId(sid));
   }
 }
