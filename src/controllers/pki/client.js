@@ -213,7 +213,9 @@ module.exports = {
     }
 
     // ignore result
-    await models.pki.destroy({
+    await models.pki.update({
+      is_delete: 1
+    }, {
       where: {
         uid: ctx.session.id,
         id: {
