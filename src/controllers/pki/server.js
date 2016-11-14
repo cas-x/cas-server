@@ -98,16 +98,14 @@ module.exports = {
 
   async delete(ctx) {
     const id = ctx.params.id;
-    const pki = await models.pki.findOne({
+    const pki = await models.pki.update({
+      is_delete: 1,
+    }, {
       where: {
         id,
       },
     });
     if (!pki) {
-      throw new utils.error.ServerError('find server pki error');
-    }
-    const rv = await pki.destroy();
-    if (!rv) {
       throw new utils.error.ServerError('delete server pki error');
     }
 
