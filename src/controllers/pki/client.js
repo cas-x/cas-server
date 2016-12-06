@@ -128,15 +128,19 @@ module.exports = {
     const cn = `CN=${ctx.session.username}`;
 
     // Actually, CAS dont care work directory
+
     if (!cn) {
       throw new utils.error.ParamsError('commonname cannot be empty');
     }
+
     if (!loginPassword) {
       throw new utils.error.ParamsError('login password cannot be empty');
     }
-    if (!certPassword) {
-      throw new utils.error.ParamsError('cert password cannot be empty');
+
+    if (!certPassword..match(/^[0-9a-z]+$/)) {
+      throw new utils.error.ParamsError('cert password only be numberalphabet');
     }
+
     if (loginPassword.indexOf(' ') >= 0 || certPassword.indexOf(' ') >= 0) {
       throw new utils.error.ParamsError('password cannot include whitespace');
     }
@@ -148,9 +152,11 @@ module.exports = {
         id: ctx.session.id,
       },
     });
+
     if (!user) {
       throw new utils.error.NotFoundError(`no username: ${ctx.session.username}`);
     }
+
     if (!utils.password.check(loginPassword, user.dataValues.password)) {
       throw new utils.error.ParamsError('login password not right');
     }
