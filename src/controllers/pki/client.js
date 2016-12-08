@@ -137,7 +137,7 @@ module.exports = {
       throw new utils.error.ParamsError('login password cannot be empty');
     }
 
-    if (!certPassword..match(/^[0-9a-z]+$/)) {
+    if (!certPassword.match(/^[0-9a-z]+$/)) {
       throw new utils.error.ParamsError('cert password only be numberalphabet');
     }
 

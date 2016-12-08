@@ -16,6 +16,7 @@ const pkidir = process.env.CAS_PKI_DIR || path.join(
 
 if (process.env.NODE_ENV === 'dev') {
   module.exports = {
+    opensslconf: '/usr/local/etc/openssl/openssl.cnf',
     dir: pkidir,
     days: process.env.CAS_PKI_DAYS || 30,
     password: process.env.CAS_PKI_PASSWORD || 'password',
@@ -30,6 +31,7 @@ if (process.env.NODE_ENV === 'dev') {
   };
 } else if (process.env.NODE_ENV === 'test') {
   module.exports = {
+    opensslconf: '/etc/pki/tls/openssl.cnf',
     dir: pkidir,
     days: process.env.CAS_PKI_DAYS || 30,
     password: process.env.CAS_PKI_PASSWORD || 'password',
@@ -44,6 +46,7 @@ if (process.env.NODE_ENV === 'dev') {
   };
 } else {
   module.exports = {
+    opensslconf: '/etc/pki/tls/openssl.cnf',
     dir: pkidir,
     days: process.env.CAS_PKI_DAYS || 30,
     password: process.env.CAS_PKI_PASSWORD || 'password',

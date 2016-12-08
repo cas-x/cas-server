@@ -18,9 +18,8 @@ const popd = shelljs.popd;
 
 module.exports = {
   exec: (cmd) => {
-    console.log(cmd);
     return new Promise((resolve, reject) => {
-      exec(cmd, { silent: true }, (code, stdout, stderr) => {
+      exec(cmd, { silent: true, shell: '/bin/bash'}, (code, stdout, stderr) => {
         if (code) {
           return reject(new Error({ code, stdout, stderr }));
         }

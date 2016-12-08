@@ -154,6 +154,8 @@ module.exports = {
     let pki = {
       id: 0,
     };
+    let dsan = '';
+    let x509dsan = '';
     let cn = ctx.request.body.commonname || '';
     const password = ctx.request.body.password || config.pki.password;
     const days = ctx.request.body.days || config.pki.days;
@@ -171,7 +173,9 @@ module.exports = {
       if (!cn.length) {
         throw new utils.error.ParamsError('common name cannot be empty');
       }
-      cn = cn.map((e) => `CN=${e}`).join('/');
+      dsan = cn.map((e, i) => `DNS:${e}`).join(',');
+      x509dsan = '\\nsubjectAltName=' + cn.map((e, i) => `DNS.${i}:${e}`).join(',');
+      cn = `CN=${cn[0]}`;
     } else {
       if (cn === '') {
         throw new utils.error.ParamsError('commonname cannot be empty');
@@ -194,12 +198,13 @@ module.exports = {
       if (key.code) {
         throw new utils.error.ServerError('generate rsa error');
       }
+
       const csr = await exec(`openssl req -new -key ${encodedcn}.key -out ${encodedcn}.csr `
-                           + `-passin pass:${password} -subj "${config.pki.subj}/${cn}"`);
+                           + `-passin pass:${password} -subj "${config.pki.subj}/${cn}" `
+                           + `-reqexts SAN -config <(cat ${config.pki.opensslconf} <(printf "[SAN]\\nsubjectAltName=${dsan}"))`);
       if (csr.code) {
         throw new utils.error.ServerError('req error');
       }
-
       pki = await models.pki.create({
         days,
         name: encodedcn,
@@ -212,7 +217,7 @@ module.exports = {
       const crt = await exec('openssl x509 -req -sha256 '
                             + `-days ${days} -passin pass:${config.pki.ca.passin} `
                             + `-in ${encodedcn}.csr -CA ca.crt -CAkey ca.key -set_serial ${pki.id} `
-                            + `-out ${encodedcn}.crt -extfile ${config.pki.ca.x509}`);
+                            + `-out ${encodedcn}.crt -extfile <(cat ${config.pki.ca.x509} <(printf "${x509dsan}"))`);
       if (crt.code) {
         throw new utils.error.ServerError('x509 error');
       }
